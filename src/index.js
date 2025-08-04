@@ -7,6 +7,14 @@ const port = 3000;
 
 app.use(express.static(path.join(__dirname, "public")));
 
+//midware
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+); // form
+app.use(express.json()); // XMLHttpRequest,  ...
+
 // HTTP logger
 //app.use(morgan("combined"));
 
@@ -25,13 +33,17 @@ app.get("/", (req, res) => {
 });
 
 app.get("/news", (req, res) => {
-  console.log(req.query.q);
+  //console.log(req.query.q);
   res.render("news");
 });
 
 app.get("/search", (req, res) => {
-  //console.log(req.query.q);
   res.render("search");
+});
+
+app.post("/search", (req, res) => {
+  console.log(req.body.q);
+  res.send("HEHE");
 });
 
 app.listen(port, () =>
